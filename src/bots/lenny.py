@@ -13,7 +13,7 @@ import irc.strings
 from irc.client import ip_numstr_to_quad, ip_quad_to_numstr
 
 class LennyBot(irc.bot.SingleServerIRCBot):
-    def __init__(self, channel, nickname, server, port=6667):
+    def __init__(self, channel, nickname, server, port=6697):
         irc.bot.SingleServerIRCBot.__init__(self, [(server, port)], nickname, nickname)
         self.channel = channel
 
@@ -38,18 +38,20 @@ class LennyBot(irc.bot.SingleServerIRCBot):
         smiles = ["( ͡° ͜ʖ ͡°)", "(╯°□°）╯︵ ┻━┻", "¯\\_(ツ)_/¯", "⊂(・(ェ)・)⊃"]
         failwhale = ["▄██████████████▄▐█▄▄▄▄█▌", "██████▌▄▌▄▐▐▌███▌▀▀██▀▀","████▄█▌▄▌▄▐▐▌▀███▄▄█▌", "▄▄▄▄▄██████████████▀"]
         if cmd == "smile":
-            c.notice(nick, smiles[0])
+            c.notice(self.channel, smiles[0])
         elif cmd == "smile1":
-            c.notice(nick, smiles[1])
+            c.notice(self.channel, smiles[1])
         elif cmd == "smile2":
-            c.notice(nick, smiles[2])
+            c.notice(self.channel, smiles[2])
         elif cmd == "smile3":
-            c.notice(nick, smiles[3])
+            c.notice(self.channel, smiles[3])
         elif cmd == "fail":
             for failline in failwhale:
-                c.notice (nick, failline)
+                c.notice (self.channel, failline)
+        elif cmd == "commands":
+            c.notice(nick, "smile, smile1, smile2, smile3, fail")
         else:
-            c.notice(nick, random.choice(smiles))
+            c.notice(self.channel, random.choice(smiles))
 
 def main():
     import sys
