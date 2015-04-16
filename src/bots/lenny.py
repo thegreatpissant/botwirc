@@ -46,10 +46,8 @@ class LennyBot(irc.bot.SingleServerIRCBot):
         elif cmd == "smile3":
             c.notice(nick, smiles[3])
         elif cmd == "fail":
-            c.notice (nick, failwhale[0])
-            c.notice (nick, failwhale[1])
-            c.notice (nick, failwhale[2])
-            c.notice (nick, failwhale[3])
+            for failline in failwhale:
+                c.notice (nick, failline)
         else:
             c.notice(nick, random.choice(smiles))
 
